@@ -1,41 +1,31 @@
 ﻿trigger:
-- main
+  - main
 
 pool:
   name: Default
 
-variables:
-  buildConfiguration: 'Release'
-  feedName: 'StringExtensionsFeed'
-
 steps:
-- task: NuGetToolInstaller@1
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '8.x'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Restore'
-  inputs:
-    command: 'restore'
-    projects: '**/*.csproj'
+  - script: dotnet restore
+    displayName: 'Restore dependencies'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Build'
-  inputs:
-    command: 'build'
-    projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+  - script: dotnet build --configuration Release
+    displayName: 'Build'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Pack NuGet'
-  inputs:
-    command: 'pack'
-    packagesToPack: '**/*.csproj'
-    configuration: '$(buildConfiguration)'
-    outputDir: '$(Build.ArtifactStagingDirectory)'
+  - script: dotnet pack --configuration Release --output $(Build.ArtifactStagingDirectory)
+    displayName: 'Pack NuGet'
 
-- task: NuGetCommand@2
-  displayName: 'Push to Artifact Feed'
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
-    nuGetFeedType: 'internal'
-    publishVstsFeed: 'StringExtensionsFeed'
+  - task: NuGetAuthenticate@1
+    displayName: 'Authenticate to Azure Artifacts'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Push to Artifact Feed'
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: 'StringExtensionsFeed'
