@@ -1,6 +1,6 @@
 ﻿namespace StringExtensions
 {
-    public static class StringHelper
+    public static class StringExtensionMethods
     {
         public static bool StartsWithUpperCase(this string str)
         {

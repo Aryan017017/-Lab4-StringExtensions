@@ -9,3 +9,4 @@ C:\Users\7arya\OneDrive\Desktop\Sem4\C#\StringExtensions\StringExtensions\obj\De
 C:\Users\7arya\OneDrive\Desktop\Sem4\C#\StringExtensions\StringExtensions\obj\Debug\net8.0\refint\StringExtensions.dll
 C:\Users\7arya\OneDrive\Desktop\Sem4\C#\StringExtensions\StringExtensions\obj\Debug\net8.0\StringExtensions.pdb
 C:\Users\7arya\OneDrive\Desktop\Sem4\C#\StringExtensions\StringExtensions\obj\Debug\net8.0\ref\StringExtensions.dll
+C:\Users\7arya\OneDrive\Desktop\Sem4\C#\StringExtensions\StringExtensions\obj\Debug\net8.0\StringExtensions.sourcelink.json
